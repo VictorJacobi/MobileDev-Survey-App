@@ -1,6 +1,7 @@
 class Question{
   String? question;
-  List<String>? answers;
+  List<String>? options;
   String? correctAnswer;
-  Question({this.answers,this.correctAnswer,this.question});
+  Question({this.options,this.correctAnswer,this.question});
+  String? imageDirectory;
 }
