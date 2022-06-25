@@ -120,6 +120,10 @@ class QuestionScreen extends StatelessWidget {
                       }
                     ),
                   ),
+                  Text('${Provider.of<ProviderData>(context,listen: true).selectedAnswer}\n'
+                      '${Provider.of<ProviderData>(context,listen: true).objectives}\n'
+                      '${Provider.of<ProviderData>(context,listen: true).quizIndex}')
+                  // Provider.of<ProviderData>(context,listen: true).selectedResults.isNotEmpty?Text('${Provider.of<ProviderData>(context,listen: true).selectedResults[Provider.of<ProviderData>(context,listen: true).quizIndex-1].toString()}'):SizedBox.shrink(),
                 ],
               ),
             ),
