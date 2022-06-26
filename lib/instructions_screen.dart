@@ -7,13 +7,13 @@ import 'package:survey/question_screen.dart';
 import'view_page.dart';
 import'constants.dart';
 
-class WelcomeScreen extends StatelessWidget {
-  WelcomeScreen({Key? key}) : super(key: key);
+class InstructionScreen extends StatelessWidget {
+  InstructionScreen({Key? key}) : super(key: key);
   final PageController _pageController = PageController();
   final List<ViewPage> viewPage = const [
     ViewPage('images/surveyImage1.png','Thanks for participating in the survey, it\'s nice to have you here 😊','Welcome',),
-    ViewPage('images/welcomeScreenImage.png', 'Please fill in the right details as it implies to you', 'Access research data'),
-    ViewPage('images/surveyImage1.png', 'See whether patients are following through with their care plan and intervene in emergencies.', 'Let\'s get started'),
+    ViewPage('images/welcomeScreenImage.png', 'Please tick the right box option for each question. Each question has a total point of and the survey itself has a total point of 20.', 'Instruction to the survey'),
+    ViewPage('images/surveyImage2.png', 'See whether patients are following through with their care plan and intervene in emergencies.', 'Let\'s get started'),
   ];
   @override
   Widget build(BuildContext context) {

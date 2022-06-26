@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:survey/provider_data.dart';
-import 'package:survey/welcome_screen.dart';
+import 'package:survey/instructions_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import'package:provider/provider.dart';
+import 'package:survey/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
         ),
-        home: WelcomeScreen(),
+        home: SplashScreen(),
       ),
         designSize: const Size(360, 804),
       ),
