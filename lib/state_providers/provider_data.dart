@@ -126,20 +126,20 @@ class ProviderData extends ChangeNotifier{
       imageDirectory: null,
     ),
   ];
-  int index = 0;
-  int quizIndex = 0;
-  bool previousSelected = false;
-  String? selectedAnswer;
-  List answersPicked = [];
+  int index = 0;//The index helps to keep track the state of the page view in the instruction screen
+  int quizIndex = 0;//The index helps to keep track the state of the question in the question screen
+  bool previousSelected = false;//This helps to keep track if the previous text button in the question screen is selected(true) or not(false)
+  String? selectedAnswer;//This is the selected option of each question in the question screen
+  // List answersPicked = [];
   // int tileSElectedIndex = -1;
   List<ResultData> selectedResults = [];
   List<TileOption> objectives = [TileOption(option: 'Energy',isSelected: false),TileOption(option: 'Protein',isSelected: false),TileOption(option: 'Carbon dioxide',isSelected: false)];
   double progress = 0.05;
-  void changeIndex(int index){
+  void changeIndex(int index){//This changes the page view in the instruction screen
     this.index = index;
     notifyListeners();
   }
-  void nextQuizIndex(List<TileOption> objectives){
+  void nextQuizIndex(List<TileOption> objectives){//Displays to the next quiz in the question screen
     selectedAnswer = null;
     previousSelected = false;
 
@@ -148,30 +148,30 @@ class ProviderData extends ChangeNotifier{
     this.objectives = objectives;
     notifyListeners();
   }
-  void previousQuizIndex(List<TileOption> objectives){
-    // this.objectives = objectives;
+  void previousQuizIndex(List<TileOption> objectives){//Displays to the previous quiz in the question screen
     selectedAnswer = null;
     quizIndex-=1;
     progress-=0.049;
-    answersPicked.removeLast();
+    // answersPicked.removeLast();
     selectedResults.removeLast();
     this.objectives = objectives;
     previousSelected = true;
     notifyListeners();
   }
-  // void markSelectedResult(dynamic objective){
-  //   tileSElectedIndex = objectives.indexOf(objective);
-  // }
   void tileSelected(bool isSelected,int index){
+    /*
+    This performs the operation that allows that once the check box is ticked it helps add the result of the selected option.
+     It also helps to check the box of the selected val, and make the unselected remain at their state with the help of the tileRemainState() function below
+    */
     objectives[index].isSelected = isSelected;
     if(isSelected){
       selectedAnswer = objectives[index].option;
       final ResultData result = ResultData(question:myQuestion[quizIndex],selectedAnswers: selectedAnswer);
-      answersPicked.insert(quizIndex, selectedAnswer);
+      // answersPicked.insert(quizIndex, selectedAnswer);
       selectedResults.insert(quizIndex,result);
-      for(int i=quizIndex;i<answersPicked.length;i++){
-        if(answersPicked.length>quizIndex+1){
-          answersPicked.removeAt(i+1);
+      for(int i=quizIndex;i<selectedResults.length;i++){
+        if(selectedResults.length>quizIndex+1){
+          // answersPicked.removeAt(i+1);
           selectedResults.removeAt(i+1);
         }else{
 
@@ -182,16 +182,15 @@ class ProviderData extends ChangeNotifier{
     }
     notifyListeners();
   }
-  void setSelectedAnswerNull(){
-    selectedAnswer = null;
-  }
   void tileRemainState(TileOption objective){
+    //It helps to make the unselected remain at their state with the help of the tileRemain function below
     objective.isSelected = false;
   }
   void restartSurvey(){
+    //This function restarts the survey.
     quizIndex = 0;
     objectives = [TileOption(option: 'Energy',isSelected: false),TileOption(option: 'Protein',isSelected: false),TileOption(option: 'Carbon dioxide',isSelected: false)];
-    answersPicked.clear();
+    // answersPicked.clear();
     selectedResults.clear();
     progress = 0.05;
     index = 0;

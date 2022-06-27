@@ -22,7 +22,7 @@ class ResultCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(width: 100.w,child: Text('(${i+1})   +${options[i]}',)),
+              SizedBox(width: 100.w,child: Text('(${i+1})  ${options[i]}',)),
               options[i]==correctAnswer?const Icon(Icons.check,color: Colors.green,):const SizedBox.shrink(),
               options[i] ==selectedAnswer&&!isCorrect()?const Icon(Icons.clear,color: Colors.red,):const SizedBox.shrink(),
             ],
