@@ -1,4 +1,4 @@
-import 'package:survey/questions.dart';
+import 'package:survey/models/questions.dart';
 
 class ResultData{
   Question? question;

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:survey/constants.dart';
-import 'package:survey/result_screen.dart';
-import 'package:survey/results.dart';
+import 'package:survey/screens/result_screen.dart';
+import 'package:survey/models/results.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FinishScreen extends StatefulWidget {
   const FinishScreen({Key? key,this.results}) : super(key: key);
@@ -48,20 +49,20 @@ class _FinishScreenState extends State<FinishScreen> {
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton.extended(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>ResultScreen()));
-        }, label: Text('Check result'),backgroundColor: kDesignColor,),
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const ResultScreen()));
+        }, label: const Text('Check result'),backgroundColor: kDesignColor,),
         body: Stack(
           children: [
             Center(
               child: Padding(
-                padding: const EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 20.h),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Congratulations 👏',style: TextStyle(fontSize: 28,fontWeight: FontWeight.w700),),
-                    SizedBox(height: 20,),
-                    Text('You just completed the survey.',style: TextStyle(fontSize: 20),),
-                    SizedBox(height: 5,),
+                    Text('Congratulations 👏',style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.w700),),
+                    SizedBox(height: 20.h,),
+                    Text('You just completed the survey.',style: TextStyle(fontSize: 20.sp),),
+                    SizedBox(height: 5.h,),
                     Text('Your score is: ${_calculateResult()}'),
                   ],
                 ),
@@ -71,8 +72,8 @@ class _FinishScreenState extends State<FinishScreen> {
               top: 0,
               left: 0,
               child:  _controller.value.isInitialized
-                  ? SizedBox(child: VideoPlayer(_controller),width: MediaQuery.of(context).size.width,height: 280,)
-                  : SizedBox(child: Center(child: CircularProgressIndicator()),width: MediaQuery.of(context).size.width,height: 280,),
+                  ? SizedBox(width: MediaQuery.of(context).size.width,height: 280.h,child: VideoPlayer(_controller),)
+                  : SizedBox(width: MediaQuery.of(context).size.width,height: 280.h,child: const Center(child: CircularProgressIndicator()),),
             ),
           ],
         ),

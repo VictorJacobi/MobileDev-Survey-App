@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:survey/provider_data.dart';
-import 'package:survey/instructions_screen.dart';
+import 'package:survey/state_providers/provider_data.dart';
+import 'package:survey/screens/instructions_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import'package:provider/provider.dart';
-import 'package:survey/splash_screen.dart';
+import 'package:survey/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());

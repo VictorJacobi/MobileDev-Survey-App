@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:survey/questions.dart';
-import 'package:survey/results.dart';
-import 'package:survey/tile_option.dart';
+import 'package:survey/models/questions.dart';
+import 'package:survey/models/results.dart';
+import 'package:survey/models/tile_option.dart';
 
 class ProviderData extends ChangeNotifier{
   List<Question> myQuestion = [
@@ -57,13 +57,13 @@ class ProviderData extends ChangeNotifier{
       question: 'God designed your body to change the food that you eat into a form your body can use.  The parts of your body that change or digest the food is called the _____.',
       options: ['Stomach','Digestive system'],
         correctAnswer: 'Digestive system',
-      imageDirectory: 'images/quizImage1.png',
+      imageDirectory: null,
     ),
     Question(
         question: 'Your skin, nails, hair, muscles, internal organs and even your brain contain no protein.',
         options: ['True','False'],
         correctAnswer: 'False',
-      imageDirectory: 'images/quizImage2.png',
+      imageDirectory: null,
     ),
     Question(
         question: 'How many chambers are in the heart?',
@@ -122,7 +122,7 @@ class ProviderData extends ChangeNotifier{
     Question(
         question: 'Which of the following organ(s) form a part of the human digestive system? ',
         options: ['Esophagus','Anus','Lungs','Heart'],
-        correctAnswer: 'Nutrients',
+        correctAnswer: 'Esophagus',
       imageDirectory: null,
     ),
   ];

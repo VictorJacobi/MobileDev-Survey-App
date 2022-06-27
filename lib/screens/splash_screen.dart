@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:survey/instructions_screen.dart';
+import 'package:survey/screens/instructions_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -12,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState(){
     super.initState();
-    Future.delayed(Duration(milliseconds: 2000)).then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>InstructionScreen())));
+    Future.delayed(const Duration(milliseconds: 3000)).then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>InstructionScreen())));
   }
   @override
   Widget build(BuildContext context) {

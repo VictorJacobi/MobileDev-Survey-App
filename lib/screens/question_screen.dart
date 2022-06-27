@@ -3,16 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:survey/constants.dart';
-import 'package:survey/finish_screen.dart';
-import 'package:survey/provider_data.dart';
-import 'package:survey/result_screen.dart';
-import 'package:survey/tile_option.dart';
+import 'package:survey/screens/finish_screen.dart';
+import 'package:survey/state_providers/provider_data.dart';
+import 'package:survey/models/tile_option.dart';
 
 class QuestionScreen extends StatelessWidget {
   const QuestionScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    ProviderData neededQuizData = context.watch<ProviderData>();
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -26,7 +25,7 @@ class QuestionScreen extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.clear,
-                        size: 30,
+                        size: 30.sp,
                       ),
                       SizedBox(
                         width: 20.w,
@@ -34,7 +33,7 @@ class QuestionScreen extends StatelessWidget {
                       Text(
                         'Question',
                         style: TextStyle(
-                            fontSize: 35, fontWeight: FontWeight.w700),
+                            fontSize: 35.sp, fontWeight: FontWeight.w700),
                       ),
                     ],
                   ),
@@ -45,34 +44,24 @@ class QuestionScreen extends StatelessWidget {
                     lineHeight: 20.0,
                     animationDuration: 2000,
                     barRadius: Radius.circular(10.r),
-                    percent: Provider.of<ProviderData>(context, listen: true)
-                        .progress,
+                    percent: neededQuizData.progress,
                     progressColor: kDesignColor,
                   ),
                   SizedBox(height: 50.h),
-                  Provider.of<ProviderData>(context, listen: false)
-                      .myQuestion[
-                  Provider.of<ProviderData>(context, listen: true)
-                      .quizIndex].imageDirectory!=null?Image.asset(Provider.of<ProviderData>(context, listen: false)
-                      .myQuestion[
-                  Provider.of<ProviderData>(context, listen: true)
-                      .quizIndex].imageDirectory!,):SizedBox.shrink(),
+                  neededQuizData.myQuestion[
+                  neededQuizData.quizIndex].imageDirectory!=null?Image.asset(neededQuizData.myQuestion[
+                  neededQuizData.quizIndex].imageDirectory!,):const SizedBox.shrink(),
                   Text(
-                    Provider.of<ProviderData>(context, listen: false)
-                        .myQuestion[
-                            Provider.of<ProviderData>(context, listen: true)
-                                .quizIndex]
+                    neededQuizData.myQuestion[
+                    neededQuizData.quizIndex]
                         .question!,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
                   ),
                   SizedBox(
                     height: 200.h,
                     child: ListView.builder(
-                        itemCount: Provider.of<ProviderData>(context,
-                                listen: false)
-                            .myQuestion[
-                                Provider.of<ProviderData>(context, listen: true)
-                                    .quizIndex]
+                        itemCount: neededQuizData.myQuestion[
+                        neededQuizData.quizIndex]
                             .options!
                             .length,
                         itemBuilder: (context, index) {
@@ -80,9 +69,7 @@ class QuestionScreen extends StatelessWidget {
                             height: 40.h,
                             child: ListTile(
                               leading: Checkbox(
-                                fillColor:Provider.of<ProviderData>(context,
-                              listen: false)
-                              .selectedAnswer ==
+                                fillColor:neededQuizData.selectedAnswer ==
                               null?
                                     MaterialStateProperty.resolveWith(
                                         (states) {
@@ -99,48 +86,23 @@ class QuestionScreen extends StatelessWidget {
                                       }
                                       return kDesignColor;
                                     }),
-                                value: Provider.of<ProviderData>(context,
-                                        listen: true)
-                                    .objectives[index]
+                                value: neededQuizData.objectives[index]
                                     .isSelected,
                                 onChanged: (val) {
                                   for (var objective
-                                      in Provider.of<ProviderData>(context,
-                                              listen: false)
-                                          .objectives) {
-                                    Provider.of<ProviderData>(context,
-                                            listen: false)
-                                        .tileRemainState(objective);
+                                      in neededQuizData.objectives) {
+                                    neededQuizData.tileRemainState(objective);
                                   }
-                                  Provider.of<ProviderData>(context,
-                                          listen: false)
-                                      .tileSelected(val!, index);
+                                  neededQuizData.tileSelected(val!, index);
                                 },
                               ),
-                              title: Text(Provider.of<ProviderData>(context,
-                                  listen: false)
-                                  .myQuestion[
-                              Provider.of<ProviderData>(context, listen: true)
-                                  .quizIndex]
+                              title: Text(neededQuizData.myQuestion[
+                              neededQuizData.quizIndex]
                                   .options![index]),
                             ),
                           );
                         }),
                   ),
-                  // Text(
-                  //     // '${Provider.of<ProviderData>(context, listen: true).selectedAnswer}\n'
-                  //     // // '${Provider.of<ProviderData>(context, listen: true).objectives}\n'
-                  //     '${Provider.of<ProviderData>(context, listen: true).selectedResults}\n'
-                  //     // '${Provider.of<ProviderData>(context, listen: true).quizIndex}\n'
-                  //     // // '${Provider.of<ProviderData>(context,
-                  //     // //     listen: false)
-                  //     // //     .myQuestion[
-                  //     // // Provider.of<ProviderData>(context, listen: true)
-                  //     // //     .quizIndex]
-                  //     // //     .options}\n'
-                  //     // '${Provider.of<ProviderData>(context, listen: false).answersPicked}\n'
-                  // )
-                  // Provider.of<ProviderData>(context,listen: true).selectedResults.isNotEmpty?Text('${Provider.of<ProviderData>(context,listen: true).selectedResults[Provider.of<ProviderData>(context,listen: true).quizIndex-1].toString()}'):SizedBox.shrink(),
                 ],
               ),
             ),
@@ -152,42 +114,33 @@ class QuestionScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(onTap: (){
-                      if (Provider.of<ProviderData>(context, listen: false)
-                          .quizIndex< 1) {
+                      if (neededQuizData.quizIndex< 1) {
                       } else {
                         List<TileOption> option = [];
-                        for (var data in Provider.of<ProviderData>(context,
-                            listen: false)
-                            .myQuestion[
-                        Provider.of<ProviderData>(context, listen: false)
-                            .quizIndex -
+                        for (var data in neededQuizData.myQuestion[
+                        neededQuizData.quizIndex -
                             1]
                             .options!) {
                           option.add(TileOption(isSelected: false, option: data));
                         }
-                      Provider.of<ProviderData>(context, listen: false).previousQuizIndex(option);}
+                        neededQuizData.previousQuizIndex(option);}
                     },child: Text('Previous',style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                         fontFamily: 'Messina Sans',
                         color: Colors.black,
                     ))),
                     MaterialButton(
                       onPressed: () {
-                        if (Provider.of<ProviderData>(context, listen: false)
-                                .quizIndex ==
-                            Provider.of<ProviderData>(context, listen: false)
-                                    .myQuestion
+                        if (neededQuizData.quizIndex ==
+                            neededQuizData.myQuestion
                                     .length -
                                 1) {
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>FinishScreen(results: Provider.of<ProviderData>(context, listen: true).selectedResults,)));
                         } else {
                           List<TileOption> option = [];
-                          for (var data in Provider.of<ProviderData>(context,
-                                  listen: false)
-                              .myQuestion[
-                                  Provider.of<ProviderData>(context, listen: false)
-                                          .quizIndex +
+                          for (var data in neededQuizData.myQuestion[
+                          neededQuizData.quizIndex +
                                       1]
                               .options!) {
                             option.add(TileOption(isSelected: false, option: data));
@@ -195,11 +148,9 @@ class QuestionScreen extends StatelessWidget {
                           if (Provider.of<ProviderData>(context, listen: false)
                                   .selectedAnswer !=
                               null) {
-                            // Provider.of<ProviderData>(context,listen: false).answers.add(Provider.of<ProviderData>(context,listen: false).selectedAnswer);
-                            Provider.of<ProviderData>(context, listen: false)
-                                .nextQuizIndex(option);
+                            neededQuizData.nextQuizIndex(option);
                           } else {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                               backgroundColor: Colors.white,
                                 content: Text('An answer has to be selected',style: TextStyle(color: Colors.black),)));
                           }
@@ -210,16 +161,14 @@ class QuestionScreen extends StatelessWidget {
                       minWidth: 119,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)),
-                      child: Provider.of<ProviderData>(context, listen: false)
-                          .quizIndex !=
-                          Provider.of<ProviderData>(context, listen: false)
-                              .myQuestion
+                      child: neededQuizData.quizIndex !=
+                          neededQuizData.myQuestion
                               .length -
                               1?Icon(
                         Icons.arrow_forward,
-                        size: 50,
+                        size: 50.sp,
                         color: Colors.white,
-                      ):Text('Finish',style: TextStyle(color: Colors.white),),
+                      ):const Text('Finish',style: TextStyle(color: Colors.white),),
                     ),
                   ],
                 ),

@@ -2,10 +2,10 @@ import'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:survey/provider_data.dart';
-import 'package:survey/question_screen.dart';
-import'view_page.dart';
-import'constants.dart';
+import 'package:survey/state_providers/provider_data.dart';
+import 'package:survey/screens/question_screen.dart';
+import'../widgets/view_page.dart';
+import'../constants.dart';
 
 class InstructionScreen extends StatelessWidget {
   InstructionScreen({Key? key}) : super(key: key);
@@ -37,10 +37,10 @@ class InstructionScreen extends StatelessWidget {
                     controller: _pageController, // PageController
                     count: 3,
                     effect: SwapEffect(
-                      dotHeight: 10,
-                      dotWidth: 10,
+                      dotHeight: 10.h,
+                      dotWidth: 10.w,
                       activeDotColor: kDesignColor,
-                      dotColor: Color(0xFFC4C4C4),
+                      dotColor: const Color(0xFFC4C4C4),
                     ), // your preferred effect
                     onDotClicked: (index) {
                       _pageController.jumpToPage(index);
@@ -60,7 +60,7 @@ class InstructionScreen extends StatelessWidget {
                   onPressed: () {
                     switch (Provider.of<ProviderData>(context,listen: false).index) {
                       case 0:
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>QuestionScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const QuestionScreen()));
                         break;
                       default:
                         _pageController.jumpToPage(Provider.of<ProviderData>(context,listen: false).index-1);
@@ -87,7 +87,7 @@ class InstructionScreen extends StatelessWidget {
                   onPressed: () {
                     switch (Provider.of<ProviderData>(context,listen: false).index) {
                       case 2:
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>QuestionScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const QuestionScreen()));
                         break;
                       default:
                         _pageController.jumpToPage(Provider.of<ProviderData>(context,listen: false).index+1);
