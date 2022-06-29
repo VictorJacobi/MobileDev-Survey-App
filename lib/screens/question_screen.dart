@@ -4,6 +4,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:survey/constants.dart';
 import 'package:survey/screens/finish_screen.dart';
+import 'package:survey/screens/result_screen.dart';
 import 'package:survey/state_providers/provider_data.dart';
 import 'package:survey/models/tile_option.dart';
 
@@ -31,9 +32,9 @@ class QuestionScreen extends StatelessWidget {
                         width: 20.w,
                       ),
                       Text(
-                        'Question',
+                        '${neededQuizData.myQuestion[neededQuizData.quizIndex].questionType}',
                         style: TextStyle(
-                            fontSize: 35.sp, fontWeight: FontWeight.w700),
+                            fontSize: 17.sp, fontWeight: FontWeight.w700,),
                       ),
                     ],
                   ),
@@ -57,7 +58,8 @@ class QuestionScreen extends StatelessWidget {
                         .question!,
                     style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
                   ),
-                  SizedBox(
+                  neededQuizData.myQuestion[
+                  neededQuizData.quizIndex].optionType=='obj'?SizedBox(
                     height: 200.h,
                     child: ListView.builder(
                         itemCount: neededQuizData.myQuestion[
@@ -102,7 +104,12 @@ class QuestionScreen extends StatelessWidget {
                             ),
                           );
                         }),
+                  ):TextField(
+                    autofocus: true,
+                    controller: neededQuizData.controller,
                   ),
+                  // Text('This is it: ${neededQuizData.controllerText}'),
+                  Text('${neededQuizData.selectedResults}\n'),
                 ],
               ),
             ),
@@ -116,14 +123,7 @@ class QuestionScreen extends StatelessWidget {
                     InkWell(onTap: (){
                       if (neededQuizData.quizIndex< 1) {
                       } else {
-                        List<TileOption> option = [];
-                        for (var data in neededQuizData.myQuestion[
-                        neededQuizData.quizIndex -
-                            1]
-                            .options!) {
-                          option.add(TileOption(isSelected: false, option: data));
-                        }
-                        neededQuizData.previousQuizIndex(option);}
+                        neededQuizData.previousQuizIndex();}
                     },child: Text('Previous',style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
@@ -136,24 +136,53 @@ class QuestionScreen extends StatelessWidget {
                             neededQuizData.myQuestion
                                     .length -
                                 1) {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>FinishScreen(results: Provider.of<ProviderData>(context, listen: true).selectedResults,)));
+                          if(neededQuizData.controller.text!=''||neededQuizData.selectedAnswer !=
+                              null){
+                            neededQuizData.endQuiz([
+                              TileOption(option: 'Once in 3 months',isSelected: false),
+                              TileOption(option: 'Once in 6 months',isSelected: false),
+                            ]);
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> ResultScreen()));
+                          }else{
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                backgroundColor: Colors.white,
+                                content: Text('The text field has to be filled',style: TextStyle(color: Colors.black),)));
+                          }
+
                         } else {
                           List<TileOption> option = [];
+                          if(neededQuizData.myQuestion[
+                          neededQuizData.quizIndex +
+                              1]
+                              .options==null){
+                          if(neededQuizData.controller.text!=''||neededQuizData.selectedAnswer !=
+                              null){
+                            neededQuizData.nextQuizIndexOption([
+                              TileOption(option: 'Once in 3 months',isSelected: false),
+                              TileOption(option: 'Once in 6 months',isSelected: false),
+                            ],);
+
+                          }else{
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                backgroundColor: Colors.white,
+                                content: Text('The text field has to be filled',style: TextStyle(color: Colors.black),)));
+                          }
+                          }else{
                           for (var data in neededQuizData.myQuestion[
                           neededQuizData.quizIndex +
                                       1]
                               .options!) {
                             option.add(TileOption(isSelected: false, option: data));
                           }
-                          if (Provider.of<ProviderData>(context, listen: false)
-                                  .selectedAnswer !=
-                              null) {
-                            neededQuizData.nextQuizIndex(option);
-                          } else {
+                          if (neededQuizData.selectedAnswer !=
+                              null||neededQuizData.controller.text!='') {
+                            neededQuizData.nextQuizIndexOption(option);
+                          }else {
                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                               backgroundColor: Colors.white,
                                 content: Text('An answer has to be selected',style: TextStyle(color: Colors.black),)));
                           }
+                        }
                         }
                       },
                       color: kDesignColor,
@@ -168,7 +197,7 @@ class QuestionScreen extends StatelessWidget {
                         Icons.arrow_forward,
                         size: 50.sp,
                         color: Colors.white,
-                      ):const Text('Finish',style: TextStyle(color: Colors.white),),
+                      ):const Text('end',style: TextStyle(color: Colors.white),),
                     ),
                   ],
                 ),

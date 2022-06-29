@@ -6,141 +6,180 @@ import 'package:survey/models/tile_option.dart';
 class ProviderData extends ChangeNotifier{
   List<Question> myQuestion = [
     Question(
-      question: 'It takes ____ to keep your mind alert.',
-      options: ['Energy','Protein','Carbon dioxide'],
-      correctAnswer: 'Energy',
+      question: 'How often do you get a health checkup?',
+      options: ['Once in 3 months','Once in 6 months','Once a year','Only when needed','Never get it done','Other'],
       imageDirectory: 'images/quizImage1.png',
+      questionType: 'Introductory Questions',
+      optionType: 'obj',
     ),
     Question(
-      question: 'Nutrients are substances found in food that help your body grow and develop.',
-      options: ['True','False'],
-      correctAnswer: 'True',
+      question: 'What do you say about your overall health?',
+      options: ['Having Good Physical Health','Moderately physically impaired','Severely physically impaired','Totally physically impaired'],
       imageDirectory: 'images/quizImage2.png',
+      questionType: 'Introductory Questions',
+      optionType: 'obj',
     ),
     Question(
-        question: 'Vitamin D is sometimes called the:  ',
-        options: ['Sleepy vitamin','The "dorky" vitamin','The sunshine vitamin'],
-        correctAnswer: 'The sunshine vitamin',
+        question: 'Do you have any chronic diseases?',
+        options: ['Yes','No',],
       imageDirectory: 'images/quizImage3.png',
+      questionType: 'Health Assessment Questions',
+      optionType: 'obj',
     ),
     Question(
-        question: 'The parts of the body that work together to change food into a form the body can use.',
-        options: ['Digestive system', 'Digestive juices','Esophagus'],
-        correctAnswer: 'Digestive system',
+        question: 'Do you have any hereditary conditions/diseases?',
+        options: ['Yes', 'No'],
       imageDirectory: 'images/quizImage4.png',
+      questionType: 'Health Assessment Questions',
+      optionType: 'obj',
     ),
     Question(
-        question: 'Food nutrients help your body to grow and to repair itself.  These types of foods are needed every day.',
-        options: ['Proteins','Carbohydrates','Fiber'],
-        correctAnswer: 'Proteins',
+        question: 'Are you habitual to drugs and alcohol?',
+        options: ['Yes to both','Only to drugs','Only to alcohol','I am not habituated to either'],
       imageDirectory: 'images/quizImage5.png',
+      questionType: 'Health Assessment Questions',
+      optionType: 'obj',
     ),
     Question(
-        question: 'Physical health is..',
-        options: ['How fit you are and how healthy your body is.','The pH in your body which ties into your emotions.','How focused you are on other people\'s bodies.','None of the Above'],
-        correctAnswer: 'How fit you are and how healthy your body is.',
+        question: 'Over the past 2 weeks, how often have you felt nervous, anxious, or on edge?',
+        options: ['Not all','Several days','More days than not','Nearly every day'],
       imageDirectory: 'images/quizImage6.png',
+      questionType: 'Health Assessment Questions',
+      optionType: 'obj',
     ),
     Question(
-        question: 'A thick, oily, dark, liquid that forms when tobacco burns is ___________.',
-        options: ['Tar','Nicotine','Carbon'],
-        correctAnswer: 'Tar',
+        question: 'Over the past 2 weeks, how often have you felt down, depressed, or hopeless?',
+        options: ['Not all','Several days','More days than not','Nearly every day'],
       imageDirectory: 'images/quizImage7.png',
+      questionType: 'Health Assessment Questions',
+      optionType: 'obj',
     ),
     Question(
-        question: 'White blood cells that attack pathogens are called ______________.',
-        options: ['Neurocytes','Lumphocytes','Carcinogens'],
-        correctAnswer: 'Lumphocytes',
+        question: 'Over the past 2 weeks, how often have you felt little interest or pleasure in doing things?',
+        options: ['Not all','Several days','More days than not','Nearly every day'],
       imageDirectory: 'images/quizImage8.png',
+      questionType: 'Health Assessment Questions',
+      optionType: 'obj',
     ),
     Question(
-      question: 'God designed your body to change the food that you eat into a form your body can use.  The parts of your body that change or digest the food is called the _____.',
-      options: ['Stomach','Digestive system'],
-        correctAnswer: 'Digestive system',
+      question: 'How would you describe the condition of your mouth and teeth, including false teeth or dentures?',
+      options: ['Excellent','Good','Average','Poor'],
       imageDirectory: null,
+      questionType: 'Health Assessment Questions',
+      optionType: 'obj',
     ),
     Question(
-        question: 'Your skin, nails, hair, muscles, internal organs and even your brain contain no protein.',
-        options: ['True','False'],
-        correctAnswer: 'False',
+        question: 'How often do you have trouble taking medicines the way you have been told to take them?',
+        options: ['I do not have to take medicine','I always take them as prescribed','Sometimes I take them as prescribed','I seldom take them as prescribed'],
       imageDirectory: null,
+      questionType: 'Health Assessment Questions',
+      optionType: 'obj',
     ),
     Question(
-        question: 'How many chambers are in the heart?',
-        options: ['2','3','4'],
-        correctAnswer: '4',
+        question: 'On how many of the last 7 days did you engage in moderate to strenuous exercise (like a brisk walk)?',
+        options: ['0 Day','1 Day','2 Days','3 Days','4 Days','5 Days','6 Days','7 Days'],
       imageDirectory: null,
+      questionType: 'Health Assessment Questions',
+      optionType: 'obj',
     ),
     Question(
-        question: 'Nutrients from the soil that are found in foods.',
-        options: ['Minerals','vitamins','Vegetables'],
-        correctAnswer: 'Minerals',
+        question: 'How would you rate the diagnosis process that you experienced?',
+        options: ['Excellent','Above average','Average','Below average','Very poor'],
       imageDirectory: null,
+      questionType: 'Hospital Related Questions',
+      optionType: 'obj',
     ),
     Question(
-        question: 'Liquids in the mouth and stomach help break down foods into materials the body can use.',
-        options: ['Tall Cinnamon Dolce Latte, extra pump of cinnamon at 135','A tall glass of cold water','Digestive juices'],
-        correctAnswer: 'Digestive juices',
+        question: 'Overall, how do you rate us as compared to other local hospitals in your area?',
+        options: ['Excellent','Above average','Average','Below average','Very poor'],
       imageDirectory: null,
+      questionType: 'Hospital Related Questions',
+      optionType: 'obj',
     ),
     Question(
-        question: 'Your immune system produces chemicals called ___________ specifically to fight a particular invading substance.',
-        options: ['Antibodies','T-Cells','Blood cells'],
-        correctAnswer: 'Antibodies',
+        question: 'How would you rate our ambulance service?',
+        options: ['Excellent','Good','Average','Poor'],
       imageDirectory: null,
+      questionType: 'Providers Related Questions',
+      optionType: 'obj',
     ),
     Question(
-        question: 'How many servings from the fruit group should you eat daily?',
-        options: ['0-1 serving','2-4 servings','4-6 servings','6-8 servings'],
-        correctAnswer: '2-4 servings',
+      question: 'Did the pharmacy staff collect the right deductible from you for your medicines?',
+      options: null,
       imageDirectory: null,
+      questionType: 'Providers Related Questions',
+      optionType: 'fields',
     ),
     Question(
-        question: 'Food which contains sugar and starch.  Most of your energy comes from this kind of food.  Foods with natural sugar or starch in them are the best source of this kind of food.',
-        options: ['Cookies','Starches','Carbohydrates'],
-        correctAnswer: 'Carbohydrates',
+        question: 'How easy was it to schedule an appointment at our facility?',
+        options: null,
       imageDirectory: null,
+      questionType: 'General Questions',
+      optionType: 'fields',
     ),
     Question(
-        question: '_______ is the ability to do work.',
-        options: ['Energy','Digestive system','Digestive juices'],
-        correctAnswer: 'Energy',
+        question: 'How long did you wait beyond your appointment time to be seen by a provider?',
+        options: null,
       imageDirectory: null,
+      questionType: 'General Questions',
+      optionType: 'fields',
     ),
     Question(
-        question: 'Substances found in food that help your body grow and develop.',
-        options: ['Protein','Nutrients','Fiber'],
-        correctAnswer: 'Nutrients',
+        question: 'How well do you feel the provider listened to your health concerns?',
+        options: null,
       imageDirectory: null,
+      questionType: 'General Questions',
+      optionType: 'fields',
     ),
     Question(
-        question: 'Many children with asthma experience more severe reactions when they breathe ___________________',
-        options: ['Secondhand smoke','Carbon dioxide','Oxygen'],
-        correctAnswer: 'Secondhand smoke',
+        question: 'Please rate how thorough you feel the provider’s instructions for care were',
+        options: ['Excellent','Above average','Average','Below average','Very poor'],
       imageDirectory: null,
+      questionType: 'General Questions',
+      optionType: 'obj',
     ),
     Question(
-        question: 'Which of the following organ(s) form a part of the human digestive system? ',
-        options: ['Esophagus','Anus','Lungs','Heart'],
-        correctAnswer: 'Esophagus',
+        question: 'How satisfied are you with the cleanliness of our facility?',
+        options: null,
       imageDirectory: null,
+      questionType: 'General Questions',
+      optionType: 'fields',
     ),
   ];
   int index = 0;//The index helps to keep track the state of the page view in the instruction screen
   int quizIndex = 0;//The index helps to keep track the state of the question in the question screen
   bool previousSelected = false;//This helps to keep track if the previous text button in the question screen is selected(true) or not(false)
   String? selectedAnswer;//This is the selected option of each question in the question screen
+  List<String> selectedAnswers = [];
   // List answersPicked = [];
   // int tileSElectedIndex = -1;
   List<ResultData> selectedResults = [];
-  List<TileOption> objectives = [TileOption(option: 'Energy',isSelected: false),TileOption(option: 'Protein',isSelected: false),TileOption(option: 'Carbon dioxide',isSelected: false)];
+  String t = '';
+  String controllerText = '';
+  final TextEditingController controller = TextEditingController();
+  List<TileOption> objectives = [
+    TileOption(option: 'Once in 3 months',isSelected: false),
+    TileOption(option: 'Once in 6 months',isSelected: false),
+    TileOption(option: 'Once a year',isSelected: false),
+    TileOption(option: 'Only when needed',isSelected: false),
+    TileOption(option: 'Never get it done',isSelected: false),
+    TileOption(option: 'Other',isSelected: false),
+  ];
   double progress = 0.05;
   void changeIndex(int index){//This changes the page view in the instruction screen
     this.index = index;
     notifyListeners();
   }
-  void nextQuizIndex(List<TileOption> objectives){//Displays to the next quiz in the question screen
+  void nextQuizIndexOption(List<TileOption> objectives){//Displays to the next quiz in the question screen
+    myQuestion[quizIndex].questionType=='obj'?selectedAnswers.insert(quizIndex,selectedAnswer!):selectedAnswers.insert(quizIndex,controller.text);
     selectedAnswer = null;
+    t = 'next is executed';
+    final ResultData result = ResultData(question:myQuestion[quizIndex],selectedAnswers: controller.text);
+    if(controller.text.isNotEmpty){
+      selectedResults.insert(quizIndex, result);
+      controllerText = controller.text;
+      controller.clear();
+    }
     previousSelected = false;
 
     quizIndex+=1;
@@ -148,13 +187,46 @@ class ProviderData extends ChangeNotifier{
     this.objectives = objectives;
     notifyListeners();
   }
-  void previousQuizIndex(List<TileOption> objectives){//Displays to the previous quiz in the question screen
+  void endQuiz(List<TileOption> objectives){
+    myQuestion[quizIndex].questionType=='obj'?selectedAnswers.insert(quizIndex,selectedAnswer!):selectedAnswers.insert(quizIndex,controller.text);
     selectedAnswer = null;
+    t = 'It\'s ended';
+    final ResultData result = ResultData(question:myQuestion[quizIndex],selectedAnswers: controller.text);
+    if(controller.text.isNotEmpty){
+      selectedResults.insert(quizIndex, result);
+      controllerText = controller.text;
+      controller.clear();
+    }
+    previousSelected = false;
+    this.objectives = objectives;
+    notifyListeners();
+  }
+  void removeLastSelectedResult(){
+    selectedResults.removeLast();
+    notifyListeners();
+  }
+  void previousQuizIndex(){//Displays to the previous quiz in the question screen
+    selectedAnswer = null;
+    controller.text = controllerText;
     quizIndex-=1;
+
     progress-=0.049;
     // answersPicked.removeLast();
     selectedResults.removeLast();
-    this.objectives = objectives;
+    controller.clear();
+    List<TileOption> option = [];
+    if(myQuestion[quizIndex].options!=null){
+    for (var data in myQuestion[quizIndex].options!) {
+      if(data == selectedAnswers[quizIndex]){
+        option.add(TileOption(isSelected: true, option: data));
+      }else{
+        option.add(TileOption(isSelected: false, option: data));
+      }
+    }
+    }else{
+
+    }
+    objectives = option;
     previousSelected = true;
     notifyListeners();
   }
@@ -189,7 +261,14 @@ class ProviderData extends ChangeNotifier{
   void restartSurvey(){
     //This function restarts the survey.
     quizIndex = 0;
-    objectives = [TileOption(option: 'Energy',isSelected: false),TileOption(option: 'Protein',isSelected: false),TileOption(option: 'Carbon dioxide',isSelected: false)];
+    objectives = [
+      TileOption(option: 'Once in 3 months',isSelected: false),
+      TileOption(option: 'Once in 6 months',isSelected: false),
+      TileOption(option: 'Once a year',isSelected: false),
+      TileOption(option: 'Only when needed',isSelected: false),
+      TileOption(option: 'Never get it done',isSelected: false),
+      TileOption(option: 'Other',isSelected: false),
+    ];
     // answersPicked.clear();
     selectedResults.clear();
     progress = 0.05;

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:survey/constants.dart';
+import 'package:survey/screens/instructions_screen.dart';
 import 'package:survey/screens/result_screen.dart';
 import 'package:survey/models/results.dart';
+import 'package:survey/state_providers/provider_data.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,15 +17,6 @@ class FinishScreen extends StatefulWidget {
 }
 
 class _FinishScreenState extends State<FinishScreen> {
-  int _calculateResult(){
-    int score = 0;
-    for(var value in widget.results!){
-      if(value.isCorrect()){
-        score++;
-      }
-    }
-    return score;
-  }
   late VideoPlayerController _controller;
 
   @override
@@ -49,8 +43,9 @@ class _FinishScreenState extends State<FinishScreen> {
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton.extended(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const ResultScreen()));
-        }, label: const Text('Check result'),backgroundColor: kDesignColor,),
+          Provider.of<ProviderData>(context,listen: false).restartSurvey();
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>InstructionScreen()));
+        }, label: const Text('Restart'),backgroundColor: kDesignColor,),
         body: Stack(
           children: [
             Center(
@@ -62,8 +57,6 @@ class _FinishScreenState extends State<FinishScreen> {
                     Text('Congratulations 👏',style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.w700),),
                     SizedBox(height: 20.h,),
                     Text('You just completed the survey.',style: TextStyle(fontSize: 20.sp),),
-                    SizedBox(height: 5.h,),
-                    Text('Your score is: ${_calculateResult()}'),
                   ],
                 ),
               ),
