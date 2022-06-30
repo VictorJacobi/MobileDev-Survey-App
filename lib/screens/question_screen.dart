@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:survey/constants.dart';
-import 'package:survey/screens/finish_screen.dart';
 import 'package:survey/screens/result_screen.dart';
 import 'package:survey/state_providers/provider_data.dart';
 import 'package:survey/models/tile_option.dart';
@@ -13,6 +12,51 @@ class QuestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProviderData neededQuizData = context.watch<ProviderData>();
+    void _endQuiz(){
+      neededQuizData.endQuiz([
+        TileOption(option: 'Once in 3 months',isSelected: false),
+        TileOption(option: 'Once in 6 months',isSelected: false),
+      ]);
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> const ResultScreen()));
+    }
+    void _displayErrorMessage({BuildContext? context,String? error}){
+      ScaffoldMessenger.of(context!).showSnackBar(SnackBar(
+          backgroundColor: Colors.white,
+          content: Text(error!,style: const TextStyle(color: Colors.black),)));
+    }
+    void _nextQuizData(BuildContext context){
+      List<TileOption> option = [];
+      if(neededQuizData.myQuestion[
+      neededQuizData.quizIndex +
+          1]
+          .options==null){//check to see if the next quiz has an option(here it doesn't)
+        if(neededQuizData.controller.text!=''||neededQuizData.selectedAnswer !=
+            null){//check to see if the text field or the selected answer is empty
+          neededQuizData.nextQuizIndexOption([
+            TileOption(option: 'Once in 3 months',isSelected: false),
+            TileOption(option: 'Once in 6 months',isSelected: false),
+          ],);
+
+        }else{//This condition is valid if the text field is empty.
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.white,
+              content: Text('The text field has to be filled',style: TextStyle(color: Colors.black),)));
+        }
+      }else{//Here the question type is an obj(That is, it has an option).
+        for (var data in neededQuizData.myQuestion[
+        neededQuizData.quizIndex +
+            1]
+            .options!) {//Looping through the options here to return a list of Tile Option data type created specifically for the options
+          option.add(TileOption(isSelected: false, option: data));
+        }
+        if (neededQuizData.selectedAnswer !=
+            null||neededQuizData.controller.text!='') {// checking to see if the text field or the selected answer is empty
+          neededQuizData.nextQuizIndexOption(option);
+        }else {//The selected option is empty
+          _displayErrorMessage(context: context,error: 'An answer has to be selected');
+        }
+      }
+    }
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -28,27 +72,28 @@ class QuestionScreen extends StatelessWidget {
                         Icons.clear,
                         size: 30.sp,
                       ),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      Text(
-                        '${neededQuizData.myQuestion[neededQuizData.quizIndex].questionType}',
-                        style: TextStyle(
-                            fontSize: 17.sp, fontWeight: FontWeight.w700,),
+                      Padding(
+                        padding: EdgeInsets.only(left: 20.w),
+                        child: Text(
+                          '${neededQuizData.myQuestion[neededQuizData.quizIndex].questionType}',
+                          style: TextStyle(
+                              fontSize: 17.sp, fontWeight: FontWeight.w700,),
+                        ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 20.h),
-                  LinearPercentIndicator(
-                    width: MediaQuery.of(context).size.width - 41.w,
-                    animation: true,
-                    lineHeight: 20.0,
-                    animationDuration: 2000,
-                    barRadius: Radius.circular(10.r),
-                    percent: neededQuizData.progress,
-                    progressColor: kDesignColor,
+                  Padding(
+                    padding: EdgeInsets.only(top: 20.h,bottom: 50.h),
+                    child: LinearPercentIndicator(
+                      width: MediaQuery.of(context).size.width - 41.w,
+                      animation: true,
+                      lineHeight: 20.0,
+                      animationDuration: 2000,
+                      barRadius: Radius.circular(10.r),
+                      percent: neededQuizData.progress,
+                      progressColor: kDesignColor,
+                    ),
                   ),
-                  SizedBox(height: 50.h),
                   neededQuizData.myQuestion[
                   neededQuizData.quizIndex].imageDirectory!=null?Image.asset(neededQuizData.myQuestion[
                   neededQuizData.quizIndex].imageDirectory!,):const SizedBox.shrink(),
@@ -109,7 +154,10 @@ class QuestionScreen extends StatelessWidget {
                     controller: neededQuizData.controller,
                   ),
                   // Text('This is it: ${neededQuizData.controllerText}'),
-                  Text('${neededQuizData.selectedResults}\n'),
+                  // Text('${neededQuizData.selectedAnswers}\n'
+                  //     '${neededQuizData.selectedAnswer}\n'
+                  //     '${neededQuizData.quizIndex}\n'
+                  //     '${neededQuizData.myQuestion[neededQuizData.quizIndex].optionType}'),
                 ],
               ),
             ),
@@ -138,51 +186,13 @@ class QuestionScreen extends StatelessWidget {
                                 1) {
                           if(neededQuizData.controller.text!=''||neededQuizData.selectedAnswer !=
                               null){
-                            neededQuizData.endQuiz([
-                              TileOption(option: 'Once in 3 months',isSelected: false),
-                              TileOption(option: 'Once in 6 months',isSelected: false),
-                            ]);
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> ResultScreen()));
+                           _endQuiz();
                           }else{
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                backgroundColor: Colors.white,
-                                content: Text('The text field has to be filled',style: TextStyle(color: Colors.black),)));
+                            _displayErrorMessage(context: context,error: 'The text field has to be filled');
                           }
 
                         } else {
-                          List<TileOption> option = [];
-                          if(neededQuizData.myQuestion[
-                          neededQuizData.quizIndex +
-                              1]
-                              .options==null){
-                          if(neededQuizData.controller.text!=''||neededQuizData.selectedAnswer !=
-                              null){
-                            neededQuizData.nextQuizIndexOption([
-                              TileOption(option: 'Once in 3 months',isSelected: false),
-                              TileOption(option: 'Once in 6 months',isSelected: false),
-                            ],);
-
-                          }else{
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                backgroundColor: Colors.white,
-                                content: Text('The text field has to be filled',style: TextStyle(color: Colors.black),)));
-                          }
-                          }else{
-                          for (var data in neededQuizData.myQuestion[
-                          neededQuizData.quizIndex +
-                                      1]
-                              .options!) {
-                            option.add(TileOption(isSelected: false, option: data));
-                          }
-                          if (neededQuizData.selectedAnswer !=
-                              null||neededQuizData.controller.text!='') {
-                            neededQuizData.nextQuizIndexOption(option);
-                          }else {
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              backgroundColor: Colors.white,
-                                content: Text('An answer has to be selected',style: TextStyle(color: Colors.black),)));
-                          }
-                        }
+                          _nextQuizData(context);
                         }
                       },
                       color: kDesignColor,

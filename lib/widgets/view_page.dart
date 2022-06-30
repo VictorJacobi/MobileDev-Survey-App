@@ -36,32 +36,33 @@ class ViewPageState extends State<ViewPage> {
             ),
           ),
         ),
-        SizedBox(height: 70.h,),
-        Column(
-          children: [
-            Text(
-              widget.headingText,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.w700,
-                color: const Color(0xFF222525),
-              ),
-            ),
-            const SizedBox(height: 8,),
-            SizedBox(
-              width: 280.w,
-              child: Text(
-                widget.labelingText,
+        Padding(
+          padding: EdgeInsets.only(top: 70.h,bottom: 8.h),
+          child: Column(
+            children: [
+              Text(
+                widget.headingText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                  color: const Color(0xFF525257),
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xFF222525),
                 ),
               ),
-            ),
-          ],
+              SizedBox(
+                width: 280.w,
+                child: Text(
+                  widget.labelingText,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w400,
+                    color: const Color(0xFF525257),
+                  ),
+                ),
+              ),
+            ],
+          ),
         )
       ],
     );

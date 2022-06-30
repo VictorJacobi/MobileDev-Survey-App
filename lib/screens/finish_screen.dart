@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:survey/constants.dart';
 import 'package:survey/screens/instructions_screen.dart';
-import 'package:survey/screens/result_screen.dart';
 import 'package:survey/models/results.dart';
 import 'package:survey/state_providers/provider_data.dart';
 import 'package:video_player/video_player.dart';
@@ -55,8 +54,10 @@ class _FinishScreenState extends State<FinishScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('Congratulations 👏',style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.w700),),
-                    SizedBox(height: 20.h,),
-                    Text('You just completed the survey.',style: TextStyle(fontSize: 20.sp),),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20.h),
+                      child: Text('You just completed the survey.',style: TextStyle(fontSize: 20.sp),),
+                    ),
                   ],
                 ),
               ),

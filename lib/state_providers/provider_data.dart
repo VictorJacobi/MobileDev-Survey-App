@@ -154,7 +154,6 @@ class ProviderData extends ChangeNotifier{
   // List answersPicked = [];
   // int tileSElectedIndex = -1;
   List<ResultData> selectedResults = [];
-  String t = '';
   String controllerText = '';
   final TextEditingController controller = TextEditingController();
   List<TileOption> objectives = [
@@ -171,9 +170,8 @@ class ProviderData extends ChangeNotifier{
     notifyListeners();
   }
   void nextQuizIndexOption(List<TileOption> objectives){//Displays to the next quiz in the question screen
-    myQuestion[quizIndex].questionType=='obj'?selectedAnswers.insert(quizIndex,selectedAnswer!):selectedAnswers.insert(quizIndex,controller.text);
+    myQuestion[quizIndex].optionType=='obj'?selectedAnswers.insert(quizIndex,selectedAnswer!):selectedAnswers.insert(quizIndex,controller.text);
     selectedAnswer = null;
-    t = 'next is executed';
     final ResultData result = ResultData(question:myQuestion[quizIndex],selectedAnswers: controller.text);
     if(controller.text.isNotEmpty){
       selectedResults.insert(quizIndex, result);
@@ -190,7 +188,6 @@ class ProviderData extends ChangeNotifier{
   void endQuiz(List<TileOption> objectives){
     myQuestion[quizIndex].questionType=='obj'?selectedAnswers.insert(quizIndex,selectedAnswer!):selectedAnswers.insert(quizIndex,controller.text);
     selectedAnswer = null;
-    t = 'It\'s ended';
     final ResultData result = ResultData(question:myQuestion[quizIndex],selectedAnswers: controller.text);
     if(controller.text.isNotEmpty){
       selectedResults.insert(quizIndex, result);
@@ -203,6 +200,7 @@ class ProviderData extends ChangeNotifier{
   }
   void removeLastSelectedResult(){
     selectedResults.removeLast();
+    selectedAnswers.removeLast();
     notifyListeners();
   }
   void previousQuizIndex(){//Displays to the previous quiz in the question screen
@@ -226,6 +224,7 @@ class ProviderData extends ChangeNotifier{
     }else{
 
     }
+    selectedAnswers.removeLast();
     objectives = option;
     previousSelected = true;
     notifyListeners();
@@ -256,6 +255,7 @@ class ProviderData extends ChangeNotifier{
   }
   void tileRemainState(TileOption objective){
     //It helps to make the unselected remain at their state with the help of the tileRemain function below
+    //I didn't use notify listeners here because tile selected will do that automatically
     objective.isSelected = false;
   }
   void restartSurvey(){
@@ -271,6 +271,7 @@ class ProviderData extends ChangeNotifier{
     ];
     // answersPicked.clear();
     selectedResults.clear();
+    selectedAnswers.clear();
     progress = 0.05;
     index = 0;
     selectedAnswer = null;

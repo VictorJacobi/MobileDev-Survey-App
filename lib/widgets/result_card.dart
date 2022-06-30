@@ -20,10 +20,10 @@ class ResultCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('$question'),
-            SizedBox(height: 6.h,),
-            // Text('${options}')
-            Text('response: $selectedAnswer'),
-            SizedBox(height: 6.h,),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 6.h ),
+              child: Text('response: $selectedAnswer'),
+            ),
           ],
         ),
       ),
