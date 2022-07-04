@@ -11,9 +11,9 @@ class InstructionScreen extends StatelessWidget {
   InstructionScreen({Key? key}) : super(key: key);
   final PageController _pageController = PageController();
   final List<ViewPage> viewPage = const [
-    ViewPage('images/surveyImage1.png','Thanks for participating in the survey, it\'s nice to have you here 😊','Welcome',),
-    ViewPage('images/welcomeScreenImage.png', 'Please tick the right box option for each question. Each question has a total point of and the survey itself has a total point of 20.', 'Instruction to the survey'),
-    ViewPage('images/surveyImage2.png', 'See whether patients are following through with their care plan and intervene in emergencies.', 'Let\'s get started'),
+    ViewPage('images/surveyImage1.png','\nThanks for participating in the survey, it\'s nice to have you here 😊\n','Welcome',),
+    ViewPage('images/welcomeScreenImage.png', '\nPlease tick the box option for each question as it applies to you. These questions are used by our company to gather information about how to improve our company health services.\n ', 'Instruction to the survey'),
+    ViewPage('images/surveyImage2.png', '\nSee whether patients are following through with their care plan and intervene in emergencies.\n', 'Let\'s get started'),
   ];
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class InstructionScreen extends StatelessWidget {
                   children: viewPage,
                 ),
                 Positioned(
-                  top: 550.h,
+                  top: 580.h,
                   left: MediaQuery.of(context).size.width/2-20.w,
                   child: SmoothPageIndicator(
                     controller: _pageController, // PageController

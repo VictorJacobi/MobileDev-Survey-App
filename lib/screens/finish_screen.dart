@@ -56,7 +56,15 @@ class _FinishScreenState extends State<FinishScreen> {
                     Text('Congratulations 👏',style: TextStyle(fontSize: 28.sp,fontWeight: FontWeight.w700),),
                     Padding(
                       padding: EdgeInsets.only(top: 20.h),
-                      child: Text('You just completed the survey.',style: TextStyle(fontSize: 20.sp),),
+                      child: Column(
+                        children: [
+                          Text('You just completed the survey.',style: TextStyle(fontSize: 20.sp),),
+                          Padding(
+                            padding: EdgeInsets.only(top:8.0.h),
+                            child: Text('Thanks for your feedback 🥰',style: TextStyle(fontSize: 14.sp,color: Colors.grey),),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

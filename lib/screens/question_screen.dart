@@ -20,7 +20,8 @@ class QuestionScreen extends StatelessWidget {
       Navigator.push(context, MaterialPageRoute(builder: (context)=> const ResultScreen()));
     }
     void _displayErrorMessage({BuildContext? context,String? error}){
-      ScaffoldMessenger.of(context!).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context!).showSnackBar(
+          SnackBar(
           backgroundColor: Colors.white,
           content: Text(error!,style: const TextStyle(color: Colors.black),)));
     }
@@ -68,9 +69,15 @@ class QuestionScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(
-                        Icons.clear,
-                        size: 30.sp,
+                      InkWell(
+                        onTap:(){
+                          neededQuizData.restartSurvey();
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.clear,
+                          size: 30.sp,
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 20.w),
